@@ -21,12 +21,24 @@ export default defineComponent({
       key: 'ASDASD2121',
       wsHost: window.location.hostname,
       wsPort: 6001,
+      forceTLS: false,
       disableStats: true
     })
 
-    window.Echo.channel('home').listen('NewMessage', (e) => {
-      console.log(e.message)
+    window.Echo.channel('home').listen('.NewMessage', (e) => {
+      console.log(e)
     })
+  },
+  methods: {
+    saludar: async function () {
+      try {
+        const data = await fetch('http://localhost:8000/api/saluda')
+        const response = await data.json()
+        console.log(response.saludo)
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
 })
 </script>
